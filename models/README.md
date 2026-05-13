@@ -9,7 +9,7 @@
 | `further_models.py` | The winning ensemble model code |
 
 ## Saved model joblib files and final feature summaries
-In the folder `saved_ensembles_6_types` you will find the saved base learners and meta-learners for each of the 6 models (one overall and five for each cell type). This can be loaded so that the `further_models.py` script does not need to be run each time. There are also reports of the top features in each of the six models for further investigation. Using 32 cores on Iridis, the `further_models.py` workflow took ~ 3 hours.
+In the folder `saved_ensembles_6_types` you will find the saved base learners and meta-learners for each of the 6 models (one overall and five for each cell type). This can be loaded so that the `further_models.py` script does not need to be run each time. There are also reports of the top features in each of the six models for further investigation. Using 32 cores on Iridis, the `further_models.py` workflow took ~ 1.5 hours.
 
 ## Quick start
 
