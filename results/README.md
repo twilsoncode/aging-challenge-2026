@@ -5,7 +5,7 @@ By leveraging diverse data modalities—raw pseudobulk gene expression, Geneform
 
 ## Model Architecture
 
-![Model Architecture](model_worfklow.png)
+![Model Architecture](model_workflow.png)
 
 The pipeline employs a **Stacked Generalization (Stacking)** ensemble framework.
 
