@@ -6,6 +6,7 @@
 |--------|---------|
 | `train_age_model.py` | Train a Random Forest and generate val/test predictions |
 | `evaluate_val.py` | Score your validation predictions (competitor use) |
+| `further_models.py` | The winning ensemble model code |
 
 ## Quick start
 
