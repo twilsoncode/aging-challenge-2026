@@ -1,0 +1,61 @@
+=====================================
+    CD8 T ENSEMBLE SUMMARY
+=====================================
+
+--- Meta-Model Reliance Weights ---
+XGB        : 0.1730
+LGBM       : 0.1135
+RF         : -0.1341
+EN         : 0.8302
+MLP        : 0.1351
+KNN        : -0.0868
+Ridge      : -1.1768
+SVR        : 0.2143
+
+--- Top 15 Overall Genes (Weighted Ensemble XGB+RF) ---
+ENSG00000151304__CD4_T       0.02753
+ENSG00000270659__B_cells     0.02047
+ENSG00000229272__NK          0.00963
+ENSG00000286056__monocytes   0.00819
+ENSG00000273747__B_cells     0.00811
+ENSG00000258323__NK          0.00766
+ENSG00000257105__CD8_T       0.00761
+ENSG00000169018__CD8_T       0.00683
+ENSG00000138029__CD4_T       0.00654
+ENSG00000171735__CD4_T       0.00626
+ENSG00000139364__B_cells     0.00614
+ENSG00000245468__B_cells     0.00596
+ENSG00000224884__monocytes   0.00590
+ENSG00000170345__NK          0.00575
+ENSG00000119661__CD4_T       0.00574
+
+--- Top 15 Features (ElasticNet - Largest Magnitude) ---
+ENSG00000213020__NK          1.60247
+ENSG00000256011__CD8_T       1.06541
+ENSG00000072163__CD4_T       1.00192
+ENSG00000156508__NK          0.96446
+ENSG00000139890__B_cells     0.91805
+ENSG00000270659__B_cells     0.88263
+ENSG00000135390__monocytes   0.85884
+ENSG00000287355__monocytes   0.85622
+ENSG00000276223__CD4_T       0.82200
+ENSG00000257373__B_cells     0.81110
+ENSG00000272592__NK          0.73652
+ENSG00000273747__CD4_T       0.67657
+ENSG00000197085__monocytes   0.67266
+ENSG00000143776__CD4_T       0.67127
+ENSG00000254416__NK          0.66995
+
+--- Top 15 Genotype PCs (Ridge - Largest Magnitude) ---
+pca9         17.47142
+pca10         6.85768
+pca8          5.65441
+pca7          1.56298
+pca5          0.91985
+pca6          0.59546
+pca2          0.59255
+sex_binary    0.47651
+pca4          0.39191
+pca3          0.12148
+pca1          0.01405
+
