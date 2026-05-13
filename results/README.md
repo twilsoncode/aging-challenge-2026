@@ -3,6 +3,8 @@ This repository contains the `further_models.py` pipeline in the models folder, 
 
 By leveraging diverse data modalities—raw pseudobulk gene expression, Geneformer foundational model embeddings, and Genotype Principal Components (PCs)—the pipeline ensures that morphological, genetic, and transcriptomic signals are all captured to accurately estimate donor age.
 
+The Jupyter notebook `models_stats_final.ipynb` runs the calculations for how well the models perform vs the true age in the test dataset.
+
 ## Model Architecture
 
 ![Model Architecture](model_workflow.png)
