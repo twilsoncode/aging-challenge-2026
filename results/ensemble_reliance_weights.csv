@@ -1,0 +1,25 @@
+Ensemble,Base_Model,Weight
+Ensemble_AIDA,ElasticNet (Pseudobulk),-1.3762767553097102
+Ensemble_AIDA,LGBM (Pseudobulk),0.5991614475541006
+Ensemble_AIDA,XGB (Pseudobulk),0.5985030503057523
+Ensemble_AIDA,MLP (scGPT),0.477170002231631
+Ensemble_AIDA,RF (Pseudobulk),-0.3815709901634004
+Ensemble_AIDA,KNN (scGPT),0.32466442552304087
+Ensemble_AIDA,MLP (Geneformer),0.11905584134089477
+Ensemble_AIDA,KNN (Geneformer),0.06499191575321087
+Ensemble_Both,ElasticNet (Pseudobulk),0.3701200270002442
+Ensemble_Both,MLP (Geneformer),0.3109356583519095
+Ensemble_Both,MLP (scGPT),0.2882547469351023
+Ensemble_Both,LGBM (Pseudobulk),0.23893252892024114
+Ensemble_Both,RF (Pseudobulk),-0.23528987779488972
+Ensemble_Both,KNN (Geneformer),0.16152652457530375
+Ensemble_Both,KNN (scGPT),-0.07779226948281869
+Ensemble_Both,XGB (Pseudobulk),0.00444807123181083
+Ensemble_OneK1K,ElasticNet (Pseudobulk),0.5273442469488091
+Ensemble_OneK1K,XGB (Pseudobulk),0.2847636690650955
+Ensemble_OneK1K,RF (Pseudobulk),-0.1917775341628877
+Ensemble_OneK1K,MLP (Geneformer),0.1872567592421861
+Ensemble_OneK1K,LGBM (Pseudobulk),0.157662400113365
+Ensemble_OneK1K,KNN (Geneformer),0.1257626207957731
+Ensemble_OneK1K,KNN (scGPT),-0.09453264600691504
+Ensemble_OneK1K,MLP (scGPT),0.04884370969092034
