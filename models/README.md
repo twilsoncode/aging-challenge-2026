@@ -4,6 +4,8 @@ This directory contains the final evaluation and training pipeline for predictin
 
 The primary script (`models_script.py`) evaluates base learners on the **OneK1K** dataset, builds stacking ensembles using both OneK1K and **AIDA** datasets, and safely exports the fully trained models for future inference.
 
+The code `extract_weights.py` extracts the ensemble weights from the saved .joblib models into a readable form and is saved in the results directory.
+
 ## 🚀 Pipeline Overview
 
 The script is divided into three major operational steps:
@@ -46,4 +48,5 @@ The script expects to be run from inside the `models/` folder and relies on the 
 │   └── true_test_ages.csv           # Required for test set evaluation
 └── models/
     ├── models_script.py           # The main pipeline script
+    ├── extract_weights.py        
     └── saved_final_ensembles/       # Output directory for serialized models
