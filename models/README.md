@@ -1,64 +1,49 @@
-# Models — Age Prediction Baseline
+# Aging Challenge 2026: Final Ensemble Pipeline
 
-## Scripts
+This directory contains the final evaluation and training pipeline for predicting chronological age using a combination of **scRNA-seq Pseudobulk**, **Geneformer embeddings**, and **scGPT embeddings**. 
 
-| Script | Purpose |
-|--------|---------|
-| `train_age_model.py` | Train a Random Forest and generate val/test predictions |
-| `evaluate_val.py` | Score your validation predictions (competitor use) |
-| `further_models.py` | The winning ensemble model code |
+The primary script (`models_script.py`) evaluates base learners on the **OneK1K** dataset, builds stacking ensembles using both OneK1K and **AIDA** datasets, and safely exports the fully trained models for future inference.
 
-## Saved model joblib files and final feature summaries
-In the folder `saved_ensembles_6_types` you will find the saved base learners and meta-learners for each of the 6 models (one overall and five for each cell type). This can be loaded so that the `further_models.py` script does not need to be run each time. There are also reports of the top features in each of the six models for further investigation. Using 32 cores on Iridis, the `further_models.py` workflow took ~ 1.5 hours.
+## 🚀 Pipeline Overview
 
-## Quick start
+The script is divided into three major operational steps:
 
-```bash
-# 1. Train baseline (place competition h5ad under data/ — see data/README.md)
-python models/train_age_model.py \
-    --input data/scRNA-seq_pseudobulk/train_pseudobulk_donor_aggregated_public.h5ad
+### Step 1: Base Learner Evaluation & Feature Extraction
+* Evaluates 8 individual base models exclusively on the **OneK1K** (Train + Val) dataset.
+* Evaluates performance on the true OneK1K Test set.
+* Extracts native feature weights for tree/linear models and calculates **Permutation Importance** for neural networks (MLP/KNN).
+* Compiles a comprehensive top-to-bottom feature ranking across all modalities.
 
-# 2. Evaluate on validation set
-python models/evaluate_val.py --plot
-```
+### Step 2: Cross-Dataset Ensemble Models
+* Loads the **AIDA** dataset.
+* **Feature Alignment:** Strictly aligns AIDA's gene symbols and embedding dimensions to the OneK1K structure using `.reindex()` to guarantee mathematical compatibility and prevent `NaN` generation.
+* Uses 5-Fold Out-Of-Fold (OOF) predictions to train a **Ridge Meta-Model** over the 8 base learners.
+* Builds and evaluates three distinct final ensembles:
+  1. `Ensemble_OneK1K` (Trained strictly on OneK1K)
+  2. `Ensemble_AIDA` (Trained strictly on AIDA)
+  3. `Ensemble_Both` (Trained on combined OneK1K + AIDA)
 
-The teaching notebooks write runs under `results/` by passing `--output-dir`. If you omit `--input`, defaults assume the **`data/`** layout from `data/README.md` (shared scratch) and `models/output/` for runs.
+### Step 4: Model Exporting (`saved_final_ensembles/`)
+Saves the fully fitted pipelines, feature selectors, and meta-models to disk using `joblib` so they can be deployed without retraining.
 
-## train_age_model.py — options
+---
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--input` | auto-discovered | Donor-aggregated pseudobulk h5ad |
-| `--n-genes` | 2000 | Top genes by variance |
-| `--all-features` | off | Use all features (no gene selection) |
-| `--n-estimators` | 200 | Number of trees |
-| `--max-depth` | None | Max tree depth (None = unlimited) |
-| `--seed` | 42 | Random seed |
-| `--sex` | off | Add donor sex as binary feature |
-| `--donor-metadata` | auto | Path to donor_metadata.csv (needed for `--sex`) |
-| `--geneformer` | off | Append Geneformer embeddings (see notebook 04) |
-| `--geneformer-only` | off | Use Geneformer as sole feature set |
-| `--compare-pca` | off | Run multiple configurations and compare |
-| `--output-dir` | auto-timestamped | Where to save results |
+## 📂 Expected Directory Structure
+The script expects to be run from inside the `models/` folder and relies on the following relative paths at the project root:
 
-## Outputs (models/output/TIMESTAMP/)
-
-| File | Description |
-|------|-------------|
-| `*_rf_model.joblib` | Saved Random Forest model |
-| `*_feature_names.csv` | Ordered list of features used |
-| `*_top_features.csv` | Top 20 features by importance |
-| `*_test_predictions.csv` | Predictions for test donors (submit this) |
-| `val_predictions.csv` | Predictions for val donors (self-evaluate) |
-| `test_predictions.csv` | Copy of the best config's test predictions |
-
-## Submission file
-
-Take `test_predictions.csv` and rename the prediction column to match the submission format (`donor_id`, `age`):
-
-```python
-import pandas as pd
-df = pd.read_csv("models/output/TIMESTAMP/test_predictions.csv")
-df = df.rename(columns={"predicted_age": "age"})
-df[["donor_id", "age"]].to_csv("my_submission.csv", index=False)
-```
+```text
+├── data/                            # OneK1K datasets
+│   ├── metadata/
+│   ├── scRNA-seq_pseudobulk/
+│   ├── scRNA-seq_geneformer_pseudobulk/
+│   └── scgpt_pseudobulk_tsv/        
+├── data_AIDA/                       # AIDA datasets
+│   ├── metadata/
+│   ├── scRNA-seq_pseudobulk/
+│   ├── gf_pseudobulk_tsv/
+│   └── scgpt_pseudobulk_tsv/
+├── results/                         # Generated metrics and rankings
+│   └── true_test_ages.csv           # Required for test set evaluation
+└── models/
+    ├── models_script.py           # The main pipeline script
+    └── saved_final_ensembles/       # Output directory for serialized models
